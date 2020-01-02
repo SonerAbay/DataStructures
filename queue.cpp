@@ -1,13 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 5
-
 struct queue{
-    double arr[SIZE];
+    double *arr;
     int front;
     int rear;
 };
+
+struct queue* createQueue(int size) {
+    
+    struct queue* q1 = (struct queue*)malloc(sizeof(struct queue));
+    q1->rear = size - 1;
+    q1->front = size - 1;
+    q1->arr = (double *)malloc(sizeof(double) * size);
+    return q1;
+}
 
 bool isEmpty(queue *q) {
     if(q->front == q->rear)
@@ -77,21 +84,17 @@ double findBiggest(struct queue q, int *yer) {
 }
 
 
-
-
 int main() {
 
-    queue q1;
-    q1.rear = SIZE - 1;
-    q1.front = SIZE - 1;
+    queue* q1 = createQueue(5);
 
-    push(&q1, 5.0);
-    push(&q1, 8.2);
-    push(&q1, 3.6);
-    push(&q1, 92.1);
+    push(q1, 5.0);
+    push(q1, 8.2);
+    push(q1, 3.6);
+    push(q1, 92.1);
 
     int yer;
-    double max = findBiggest(q1, &yer);
+    double max = findBiggest(*q1, &yer);
     printf("Max deger: %.2f, yeri: %d\n",max,yer);
 
 }
